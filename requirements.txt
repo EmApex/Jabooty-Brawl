@@ -1,4 +1,2 @@
-dxcam
-python-valve
 buttplug-py
 Pillow

@@ -1,17 +1,12 @@
 import time
 from config import *
 
-
 class VibrationHandler:
-    def __init__(self, logger, rcon):
+    def __init__(self, logger):
         self.logger = logger
-        self.rcon = rcon
-        self.uber_strength = 0  # uber active strength
         self.timed_buzzes = []  # list of timed vibration activations
         self._curr_strength = 0  # current strength priv variable
         self.last_strength = 0
-        self.killstreak = 0  # killstreak tracking
-        self.uberstreak = 0
 
     @property
     def current_strength(self):
@@ -26,41 +21,17 @@ class VibrationHandler:
         self.timed_buzzes.append((strength, time.time() + time_end))
 
     def death(self):
-        self.killstreak = 0
         self.timed_buzz(DEATH_STRENGTH, DEATH_TIME)
 
-    def kill(self, crit=False):
-        self.killstreak += 1
-        # [0, 1]
-        killstreak_coeff = min(self.killstreak, KILLSTREAK_MAX) / (KILLSTREAK_MAX)
+    def kill(self, kstreak, crit=False):
+        killstreak_coeff = min(kstreak, KILLSTREAK_MAX) / KILLSTREAK_MAX
 
         strength = KILL_STRENGTH * \
-                   (killstreak_coeff * (KILLSTREAK_STRENGTH_MULTIPLIER - 1.0) + 1.0) * \
-                   (KILL_CRIT_STRENGTH_MULTIPLIER if crit else 1.0)
+                   (killstreak_coeff * (KILLSTREAK_STRENGTH_MULTIPLIER - 1.0) + 1.0)
         time = KILL_TIME * \
-               (killstreak_coeff * (KILLSTREAK_TIME_MULTIPLIER - 1.0) + 1.0) * \
-               (KILL_CRIT_TIME_MULTIPLIER if crit else 1.0)
+               (killstreak_coeff * (KILLSTREAK_TIME_MULTIPLIER - 1.0) + 1.0)
 
         self.timed_buzz(strength, time)
-
-    def uber_milestone(self, uber_percent, last_uber_percent):
-        for i, x in enumerate(UBER_MILESTONES):
-            if uber_percent > x >= last_uber_percent:
-                self.logger.info(f"Hit Uber milestone {x}")
-                uber_milestone_coeff = i / len(UBER_MILESTONES) - 1
-                self.timed_buzz(
-                    UBER_MILESTONE_STRENGTH *
-                    (uber_milestone_coeff * (UBER_MILESTONE_STRENGTH_MULTIPLIER - 1.0) + 1.0),
-                    UBER_MILESTONE_TIME *
-                    (uber_milestone_coeff * (UBER_MILESTONES_TIME_MULTIPLIER - 1.0) + 1.0)
-                )
-
-    def start_uber(self):
-        self.uber_strength = UBER_ACTIVE_STRENGTH * (UBER_STREAK_MULTIPLIER ** self.uberstreak)
-
-    def end_uber(self):
-        self.uber_strength = 0
-        self.uberstreak += 1
 
     def update(self):
         self.last_strength = self.current_strength
@@ -72,18 +43,7 @@ class VibrationHandler:
             if now <= timer[1]:
                 self.current_strength = timer[0]
 
-        self.current_strength = self.uber_strength
-
         self.timed_buzzes = list(filter(lambda x: x[1] > now, self.timed_buzzes))
-
-        if self.current_strength > BASE_VIBE >= self.last_strength:
-            if ACTIVATE_COMMAND != "":
-                self.logger.info("Running activate command")
-                self.rcon.execute(ACTIVATE_COMMAND)
-        if self.current_strength <= BASE_VIBE < self.last_strength:
-            if DEACTIVATE_COMMAND != "":
-                self.logger.info("Running deactivate command")
-                self.rcon.execute(DEACTIVATE_COMMAND)
 
         return self.current_strength
 
