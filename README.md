@@ -2,6 +2,8 @@
 
 Controls smart sex toys based on kills and deaths in Jabroni Brawl, using the Intiface Central backbone to connect to hardware
 
+Probably doesn't work with Linux since the original project doesn't either
+
 WARNING - Use only in private lobbies / servers with consenting players, and test your strengths before using them. The default values are ad-hoc and not suitable for every person or device
 
 # Features
