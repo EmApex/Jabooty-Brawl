@@ -18,9 +18,7 @@ if not os.path.isfile("config.py"):
 
 async def main(logfile):
     client = Client("Jabuttri Brawl")  # :3
-
     connector = WebsocketConnector(INTIFACE_SERVER_ADDR, logger=client.logger)
-
     console = log_tailer.LogTail(logfile)
     _ = console.read()
 
@@ -87,7 +85,6 @@ async def main(logfile):
                 print("Death")
                 vibe.death()
             print(line)
-            
 
         # run vibrator
         await vibe.run_buzz(devices=client.devices)
