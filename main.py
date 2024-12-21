@@ -1,4 +1,6 @@
-#Fixed by Jordan. You're welcome.
+# Team Frotress by fionafibration.
+# Concept and initial work by Ema Pex.
+# Fixed up and finished by jordansds.
 from config import *
 import time
 import logging
