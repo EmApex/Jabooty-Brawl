@@ -17,6 +17,7 @@ KILL_TIME = 1  # Kill vibration time
 KILLSTREAK_STRENGTH_MULTIPLIER = 5  # Amount that reaching KILLSTREAK_MAX should multiply strength
 KILLSTREAK_TIME_MULTIPLIER = 1.5  # Amount that reaching KILLSTREAK_MAX should multiply time
 
+KILLSTREAK_TIMEOUT = 5 # Number of seconds before the streak ends
 KILLSTREAK_MAX = 6  # Max killstreak for scaling
 
 DEATH_STRENGTH = 0.1  # Death vibration strength

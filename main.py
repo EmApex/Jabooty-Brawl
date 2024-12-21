@@ -1,5 +1,4 @@
 #Fixed by Jordan. You're welcome.
-
 from config import *
 import time
 import logging
@@ -18,7 +17,9 @@ if not os.path.isfile("config.py"):
 
 async def main(logfile):
     client = Client("Jabuttri Brawl")  # :3
+
     connector = WebsocketConnector(INTIFACE_SERVER_ADDR, logger=client.logger)
+
     console = log_tailer.LogTail(logfile)
     _ = console.read()
 
@@ -71,7 +72,7 @@ async def main(logfile):
             
             if killer == name:  # we got a kill
                 #print(time.time() - killtime)
-                if time.time() - killtime  > 5:
+                if time.time() - killtime  > KILLSTREAK_TIMEOUT:
                     killstreak = 0
                     vibe.kill(kstreak = killstreak)
                     print("Streak reset")
@@ -85,6 +86,7 @@ async def main(logfile):
                 print("Death")
                 vibe.death()
             print(line)
+            
 
         # run vibrator
         await vibe.run_buzz(devices=client.devices)
