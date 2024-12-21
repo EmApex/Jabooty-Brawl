@@ -1,6 +1,7 @@
 # Team Frotress by fionafibration and semper-lux.
-# Concept and initial work by EmApex.
+# Concept, initial work, and maintained by EmApex.
 # Fixed up and finished by jordansds.
+
 from config import *
 import time
 import logging
@@ -18,7 +19,7 @@ if not os.path.isfile("config.py"):
     exit()
 
 async def main(logfile):
-    client = Client("Jabuttri Brawl")  # :3
+    client = Client("Jabooty Brawl")  # :3
 
     connector = WebsocketConnector(INTIFACE_SERVER_ADDR, logger=client.logger)
 
@@ -56,7 +57,7 @@ async def main(logfile):
     killtime = 0
 
     while True:
-        # detect kills & class / weapon switches from console log
+        # detect kills and deaths from console log
         while True:
             line = console.read_line()
             
@@ -75,7 +76,7 @@ async def main(logfile):
             if killer == name:  # we got a kill
                 #print(time.time() - killtime)
                 if time.time() - killtime  > KILLSTREAK_TIMEOUT:
-                    killstreak = 0
+                    killstreak = 1
                     vibe.kill(kstreak = killstreak)
                     print("Streak reset")
                 else:
