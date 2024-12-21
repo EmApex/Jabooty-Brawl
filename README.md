@@ -13,7 +13,7 @@ WARNING - Use only in private lobbies / servers with consenting players, and tes
 # Setup
 Add "-condebug -conclearlog" to your launch options. Then launch the game once to create the console log
 
-Copy config_default.py to config.py (you will have to create this file in the same directory as config_default.py) and fill out your Steam username (or another player's name!) and console.log path (console.log will be in the base Jabroni Brawl install folder)
+Copy config_default.py to config.py (you will have to create this file in the same directory as config_default.py) and fill out your Steam name (or another player's name!) and console.log path (console.log will be in the base Jabroni Brawl install folder)
 
 Only run after starting Jabroni Brawl, as large pre-existing logs can cause errors. Starting with a clean log avoids these problems
 
