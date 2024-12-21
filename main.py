@@ -1,5 +1,5 @@
-# Team Frotress by fionafibration.
-# Concept and initial work by Ema Pex.
+# Team Frotress by fionafibration and semper-lux.
+# Concept and initial work by EmApex.
 # Fixed up and finished by jordansds.
 from config import *
 import time
