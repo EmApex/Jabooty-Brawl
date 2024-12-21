@@ -1,4 +1,4 @@
-# Jabuttri Brawl
+# Jabooty Brawl
 
 Controls smart sex toys based on kills and deaths in Jabroni Brawl, using the Intiface Central backbone to connect to hardware
 
